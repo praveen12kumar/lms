@@ -10,7 +10,7 @@ const userRepository = {
     },
 
     getByName: async function (name) {
-        const response = await User.findOne({ username: name }); 
+        const response = await User.findOne({ username: name }).select("-password");
         return response;
     }
 }; 
