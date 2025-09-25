@@ -6,7 +6,7 @@ function App() {
  
 
   return (
-    <div className="App"> App</div>
+    <div className="App text-2xl font-bold underline"> App</div>
   )
 }
 
