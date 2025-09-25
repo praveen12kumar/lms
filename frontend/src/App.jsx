@@ -1,12 +1,14 @@
-
-
+import { Button } from './components/ui/button'
 import './App.css'
 
 function App() {
  
 
   return (
-    <div className="App text-2xl font-bold underline"> App</div>
+    <>
+      <div className="">App</div>
+      <Button className="bg-red-600">Button</Button>
+    </>
   )
 }
 
