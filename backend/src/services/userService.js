@@ -1,6 +1,13 @@
 
+import { StatusCodes } from "http-status-codes";
 import userRepository from "../repository/userRepository.js";
 import { ValidationError } from "../utils/errors/validationError.js";
+import { customErrorResponse } from "../utils/common/responseObject.js";
+import ClientError from "../utils/errors/clientError.js";
+import bcrypt from "bcryptjs";
+import { createJWT } from "../utils/common/authUtils.js";
+
+
 
 
 export const signUpService = async (data) => {
@@ -31,3 +38,39 @@ export const signUpService = async (data) => {
     throw error;
   }
 };
+
+
+export const signInService = async (data)=>{
+  try {
+    const user  = await userRepository.getByEmail(data.email);
+    if(!user){
+      throw new ClientError({
+        message: "User not found",
+        statusCode: StatusCodes.NOT_FOUND,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    // match the incoming password with the one in the database;
+    const isMatch = await bcrypt.compare(data.password, user.password);
+    if(!isMatch){
+      throw new ClientError({
+        message: "Invalid Password",
+        statusCode: StatusCodes.UNAUTHORIZED,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    return {
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      token: createJWT({id: user._id, email: user.email})
+    }
+
+
+  } catch (error) {
+    console.log('User Service error', error);
+    throw error;
+  }
+}
