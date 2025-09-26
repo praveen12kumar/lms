@@ -23,8 +23,8 @@ export const customErrorResponse = (error)=>{
     }
 }
 
-
 export const successResponse = (data, message)=>{
+    
     return{
         success:true,
         err:{},

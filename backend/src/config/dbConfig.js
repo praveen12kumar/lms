@@ -6,13 +6,13 @@ const DB_Name = 'LMS';
 
 export default async function connectDB() {
   try {
-    if (NODE_ENV !== 'development') {
-      await mongoose.connect(`${DEV_DB_URL}/${DB_Name}`);
+    let conn;
+    if (NODE_ENV === 'development') {
+      conn = await mongoose.connect(`${DEV_DB_URL}/${DB_Name}`);
     } else if (NODE_ENV === 'production') {
-      await mongoose.connect(PROD_DB_URL);
+      conn = await mongoose.connect(PROD_DB_URL);
     }
-
-    console.log(`Connected to database from ${NODE_ENV} environment`);
+    console.log(`Connected to database host: ${conn.connection.host} from ${NODE_ENV} environment`);
   } catch (error) {
     console.log('Error connecting to database', error);
   }
