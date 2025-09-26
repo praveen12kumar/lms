@@ -1,11 +1,12 @@
 
-import { StatusCodes } from "http-status-codes";
-import userRepository from "../repository/userRepository.js";
-import { ValidationError } from "../utils/errors/validationError.js";
-import { customErrorResponse } from "../utils/common/responseObject.js";
-import ClientError from "../utils/errors/clientError.js";
 import bcrypt from "bcryptjs";
+import { StatusCodes } from "http-status-codes";
+
+import userRepository from "../repository/userRepository.js";
+import { checkOtpRestrictions } from "../utils/common/authHelper.js";
 import { createJWT } from "../utils/common/authUtils.js";
+import ClientError from "../utils/errors/clientError.js";
+import { ValidationError } from "../utils/errors/validationError.js";
 
 
 
@@ -21,6 +22,8 @@ export const signUpService = async (data) => {
         explanation: ["Invalid data sent from the client"],
       })
     }
+    await checkOtpRestrictions(data.email);
+    
 
     const newUser = await userRepository.create(data);
     return newUser;

@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-import { de } from "zod/v4/locales";
 
 class ClientError extends Error{
     constructor(error){
