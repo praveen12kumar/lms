@@ -1,7 +1,8 @@
 import Redis from 'ioredis';
 
-import { REDIS_HOST, REDIS_PORT, REDIS_TOKEN, REDIS_URL } from '../config/serverConfig.js';
+import { REDIS_URL } from '../config/serverConfig.js';
 
+//import { REDIS_HOST, REDIS_PORT, REDIS_TOKEN,  } from '../config/serverConfig.js';
 
 
 // const redis = new Redis({

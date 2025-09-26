@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { StatusCodes } from "http-status-codes";
 
 import userRepository from "../repository/userRepository.js";
-import { checkOtpRestrictions } from "../utils/common/authHelper.js";
+import { checkOtpRestrictions, sendOtp, trackOtpRequests } from "../utils/common/authHelper.js";
 import { createJWT } from "../utils/common/authUtils.js";
 import ClientError from "../utils/errors/clientError.js";
 import { ValidationError } from "../utils/errors/validationError.js";
@@ -23,10 +23,10 @@ export const signUpService = async (data) => {
       })
     }
     await checkOtpRestrictions(data.email);
-    
+    await trackOtpRequests(data.email);
+    await sendOtp(data.username, data.email, 'user-activation-mail');
 
-    const newUser = await userRepository.create(data);
-    return newUser;
+    return;
   } 
   catch (error) {
     // Mongoose validation error (schema validators)

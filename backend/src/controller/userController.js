@@ -7,8 +7,8 @@ import { customErrorResponse, internalErrorResponse, successResponse } from "../
 //signup
 export const signup = async(req, res)=>{
     try {
-        const user = await signUpService(req.body);
-        return res.status(StatusCodes.CREATED).json(successResponse(user, "User created successfully"));
+        await signUpService(req.body);
+        return res.status(StatusCodes.OK).json(successResponse({}, "OTP send to email. Please verify your account"));
 
     } catch (error) {
         //console.log("user Controller error", error);
