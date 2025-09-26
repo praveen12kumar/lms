@@ -12,6 +12,16 @@ import { createJWT } from "../utils/common/authUtils.js";
 
 export const signUpService = async (data) => {
   try {
+    const existingUser = await userRepository.getByEmail(data.email);
+
+    if(!existingUser){
+      throw new ClientError({
+        message: "User already exists",
+        statusCode: StatusCodes.BAD_REQUEST,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
     const newUser = await userRepository.create(data);
     return newUser;
   } 
