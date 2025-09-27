@@ -6,6 +6,14 @@ export const userSignUpSchema = z.object({
     password: z.string().min(6).max(20),
 });
 
+
+export const verifyUserSchema = z.object({
+    username: z.string().min(3).max(20),
+    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
+    otp: z.string().min(6).max(6),
+    password: z.string().min(6).max(20),
+})
+
 export const userSignInSchema = z.object({
     email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
     password: z.string().min(6).max(20),

@@ -4,10 +4,9 @@ import { StatusCodes } from "http-status-codes";
 
 import userRepository from "../repository/userRepository.js";
 import { checkOtpRestrictions, sendOtp, trackOtpRequests } from "../utils/common/authHelper.js";
-import { createJWT } from "../utils/common/authUtils.js";
+import { createJWT, hashedPassword, verifyOtp } from "../utils/common/authUtils.js";
 import ClientError from "../utils/errors/clientError.js";
 import { ValidationError } from "../utils/errors/validationError.js";
-
 
 
 
@@ -52,6 +51,47 @@ export const signUpService = async (data) => {
 };
 
 
+export const verifyUserService = async(data)=>{
+  try {
+    
+    const existingUser = await userRepository.getByEmail(data.email);
+    if(existingUser){
+      throw new ClientError({
+        message: "User already exists",
+        statusCode: StatusCodes.BAD_REQUEST,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    await verifyOtp(data.email, data.otp);
+    // hash the password
+    const hashedPass = await hashedPassword(data.password);
+
+    const user = await userRepository.create({...data, password: hashedPass});
+
+    return user;
+
+  } catch (error) {
+     if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+      }
+      // Duplicate key (unique index) from MongoDB
+    const mongoCode = error.code ?? error?.cause?.code;
+    if (mongoCode === 11000) {
+      // Try to extract the duplicate field name from keyValue (or cause.keyValue)
+      const keyVal = error.keyValue ?? error?.cause?.keyValue;
+      const field = keyVal ? Object.keys(keyVal)[0] : "field";
+
+      throw new ValidationError(
+        { error: [`A user with this ${field} already exists`] }
+      );
+    }
+
+    throw error;
+  }
+}
+
+
 export const signInService = async (data)=>{
   try {
     const user  = await userRepository.getByEmail(data.email);
@@ -65,6 +105,7 @@ export const signInService = async (data)=>{
 
     // match the incoming password with the one in the database;
     const isMatch = await bcrypt.compare(data.password, user.password);
+    
     if(!isMatch){
       throw new ClientError({
         message: "Invalid Password",
@@ -83,6 +124,9 @@ export const signInService = async (data)=>{
 
   } catch (error) {
     console.log('User Service error', error);
+    if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+    }
     throw error;
   }
 }

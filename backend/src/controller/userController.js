@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { signInService, signUpService } from "../services/userService.js";
+import { signInService, signUpService, verifyUserService } from "../services/userService.js";
 import { customErrorResponse, internalErrorResponse, successResponse } from "../utils/common/responseObject.js";
 
 
@@ -19,6 +19,20 @@ export const signup = async(req, res)=>{
         .json(internalErrorResponse(error));
     }
 }
+
+// verify email
+export const verifyEmail = async(req, res)=>{
+    try {
+        const response = await verifyUserService(req.body);
+        return res.status(StatusCodes.OK).json(successResponse(response, "User verified successfully"));
+    } catch (error) {
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
+    }
+}
+
 
 // signin
 export const signin = async(req, res)=>{
