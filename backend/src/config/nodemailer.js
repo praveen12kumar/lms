@@ -17,23 +17,26 @@ export const transport = nodemailer.createTransport({
 });
 
 const renderEmailTemplate = async(template, data) => {
+    //console.log("Rendering email template", template, data);
     const templatePath = path.join(
         process.cwd(),  // return current working directory
-        "auth-service",
         'src',
+        'utils',
         'email-templates',
         `${template}.ejs`
     
     );
-
+    //console.log("Template path", templatePath);
     return ejs.renderFile(templatePath, data);
 }
 
 // send an email using nodemailer
 
 export const sendEmail = async(to, subject, template, data)=>{
+    //console.log("Sending email", to, subject, template, data);
     try {
         const html = await renderEmailTemplate(template, data);
+        //console.log("Generated HTML", html);
         await transport.sendMail({
             from: MAIL_ID,
             to,

@@ -14,8 +14,7 @@ import { ValidationError } from "../utils/errors/validationError.js";
 export const signUpService = async (data) => {
   try {
     const existingUser = await userRepository.getByEmail(data.email);
-
-    if(!existingUser){
+    if(existingUser){
       throw new ClientError({
         message: "User already exists",
         statusCode: StatusCodes.BAD_REQUEST,

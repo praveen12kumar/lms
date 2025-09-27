@@ -6,7 +6,7 @@ import redis from '../../libs/redisConfig.js'
 import ClientError from '../errors/clientError.js';
 
 export const checkOtpRestrictions = async(email)=>{
-
+//console.log("Checking otp restrictions");
 if(await redis.get(`otp_lock:${email}`)){
     throw new ClientError({
         message: "Too many attempts, please wait 30 minutes before trying again.",
@@ -34,6 +34,7 @@ if(await redis.get(`otp_cooldown:${email}`)){
 
 
 export const trackOtpRequests = async(email)=>{
+    //console.log("Tracking otp requests");
     const otpRequestKey = `otp_request_count:${email}`;
     let otpRequests = parseInt((await redis.get(otpRequestKey)) || 0)
     
@@ -52,8 +53,9 @@ export const trackOtpRequests = async(email)=>{
 
 
 export const sendOtp = async(name, email, template)=>{
-    const opt = crypto.randomInt(100000,999999).toString();
-    await sendEmail(email, "Verify Your Email", template, {name, opt});
-    await redis.set(`otp:${email}`, opt, "EX", 5*60);
+    //console.log("Sending otp");
+    const otp = crypto.randomInt(100000,999999).toString();
+    await sendEmail(email, "Verify Your Email", template, {name, otp});
+    await redis.set(`otp:${email}`, otp, "EX", 5*60);
     await redis.set(`otp_cooldown:${email}`, "true", "EX",  60*1);
 }
