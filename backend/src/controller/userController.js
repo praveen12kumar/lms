@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { signInService, signUpService, verifyUserService } from "../services/userService.js";
+import { forgotPasswordService, resetPasswordService, signInService, signUpService, verifyOtpService, verifyUserService } from "../services/userService.js";
 import { customErrorResponse, internalErrorResponse, successResponse } from "../utils/common/responseObject.js";
 
 
@@ -46,4 +46,49 @@ export const signin = async(req, res)=>{
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
     }
 }
+
+// forgot password
+export const forgotPassword = async(req, res)=>{
+    try {
+        const response = await forgotPasswordService(req.body);
+        console.log("forgot password response",response);
+        return res.status(StatusCodes.OK).json(successResponse({}, "OTP send to email. Please check your account"))
+    } catch (error) {
+        console.log("user Controller forgot password error", error);
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
+    }
+}
+
+// verify Otp
+export const verifyOtp = async(req, res)=>{
+    try {
+        const response = await verifyOtpService(req.body);
+        return res.status(StatusCodes.OK).json(successResponse(response, "OTP verified successfully"));
+    } catch (error) {
+        console.log("user Controller verify otp error", error);
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
+    }
+}
+
+
+// reset Password
+export const resetPassword = async(req, res)=>{
+    try {
+        const response = await resetPasswordService(req.body);
+        return res.status(StatusCodes.OK).json(successResponse(response, "Password reset successfully"));
+    } catch (error) {
+        console.log("user Controller reset password error", error);
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
+    }
+}
+
 

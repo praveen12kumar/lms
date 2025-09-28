@@ -20,3 +20,18 @@ export const userSignInSchema = z.object({
 });
 
 
+export const forgotPasswordSchema = z.object({
+    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
+})
+
+export const verifyOtpSchema = z.object({
+    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
+    otp: z.string().min(6).max(6),
+})
+
+
+export const resetPasswordSchema = z.object({
+    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
+    password: z.string().min(6).max(20),
+})
+

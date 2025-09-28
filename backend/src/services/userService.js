@@ -10,6 +10,7 @@ import { ValidationError } from "../utils/errors/validationError.js";
 
 
 
+// SignUp service
 export const signUpService = async (data) => {
   try {
     const existingUser = await userRepository.getByEmail(data.email);
@@ -50,6 +51,7 @@ export const signUpService = async (data) => {
   }
 };
 
+// verify user email service
 
 export const verifyUserService = async(data)=>{
   try {
@@ -92,6 +94,9 @@ export const verifyUserService = async(data)=>{
 }
 
 
+// signIn service
+
+
 export const signInService = async (data)=>{
   try {
     const user  = await userRepository.getByEmail(data.email);
@@ -130,3 +135,102 @@ export const signInService = async (data)=>{
     throw error;
   }
 }
+
+
+// forgot password service
+
+export const forgotPasswordService = async(data)=>{
+  const {email} = data;
+  try {
+    const user = await userRepository.getByEmail(email);
+    if(!user){
+      throw new ClientError({
+        message: "User not found",
+        statusCode: StatusCodes.NOT_FOUND,
+        explanation: ["Invalid data sent from the client"]
+      })
+      
+    }
+  } catch (error) {
+    console.log('User Service error', error);
+    if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+    }
+    throw error;
+  }
+}
+
+// verify otp service
+
+export const verifyOtpService = async(data)=>{
+  try {
+    const {email, otp} = data;
+    const user = await userRepository.getByEmail(email);
+    if(!user){
+      throw new ClientError({
+        message: "User not found",
+        statusCode: StatusCodes.NOT_FOUND,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+    const isOtpVerified = await verifyOtp(email, otp);
+    
+    if(!isOtpVerified){
+      throw new ClientError({
+        message: "Invalid OTP",
+        statusCode: StatusCodes.UNAUTHORIZED,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    return user;
+    
+  } catch (error) {
+    console.log('User Service error', error);
+    if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+    }
+    throw error;
+  }
+}
+
+
+
+// reset password service
+
+export const resetPasswordService = async(data)=>{
+  try {
+    const {email, password} = data;
+    const user = await userRepository.getByEmail(email);
+    if(!user){
+      throw new ClientError({
+        message: "User not found",
+        statusCode: StatusCodes.NOT_FOUND,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    const isSamePassword = await bcrypt.compare(password, user.password);
+    if(isSamePassword){
+      throw new ClientError({
+        message: "New password cannot be same as old password",
+        statusCode: StatusCodes.BAD_REQUEST,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    // hash the new passowrd
+    const hashPass = await hashedPassword(password);
+
+    const updatedUser = await userRepository.update(user._id, {password: hashPass});
+
+    return updatedUser;
+  } catch (error) {
+    console.log('User Service error', error);
+    if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+    }
+    throw error;
+  }
+}
+
