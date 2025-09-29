@@ -1,13 +1,17 @@
-import { Button } from './components/ui/button';
+import {Routes, Route} from 'react-router-dom';
+
+
 import './App.css'
+import Auth from './pages/auth/Auth';
  
 function App() {
  
 
   return (
     <>
-      <div className="">App</div>
-      <Button className="bg-red-600">Button</Button>
+      <Routes>
+        <Route path='/auth' element={<Auth/>}/>
+      </Routes>
     </>
   )
 }
