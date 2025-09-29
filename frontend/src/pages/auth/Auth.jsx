@@ -1,10 +1,10 @@
 import React from "react";
-import SignUpSignInCard from "@/components/organisms/SignUpSignInCard";
-const Auth = () => {
+
+const Auth = ({children}) => {
   return (
     <div className="h-dvh flex items-center justify-center bg-zinc-800">
       <div className="md:h-auto md:w-[420px]">
-        <SignUpSignInCard />
+        {children}
       </div>
     </div>
   );

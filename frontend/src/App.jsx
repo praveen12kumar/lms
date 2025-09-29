@@ -5,18 +5,27 @@ import './App.css'
 import Auth from './pages/auth/Auth';
 import NotFound from './pages/notFound/NotFound';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SignUpContainer } from './components/organisms/auth/SignUpContainer';
+import { SignInContainer } from './components/organisms/auth/SignInContainer';
+
 
 function App() {
- 
+  
+  const queryClient = new QueryClient();
 
   return (
     <>
-      <Routes>
-        <Route path='/auth' element={<Auth/>}/>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+        <Route path='/auth/signin' element={<Auth> <SignInContainer/></Auth>}/>
+        <Route path='/auth/signup' element={<Auth> <SignUpContainer/></Auth>}/>
 
+        
 
         <Route path='/*' element={<NotFound/>}/>
       </Routes>
+      </QueryClientProvider>
     </>
   )
 }
