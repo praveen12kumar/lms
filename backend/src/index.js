@@ -8,12 +8,12 @@ import { PORT } from './config/serverConfig.js';
 import apiRouter from './routes/apiRoutes.js';
 const app = express();
 
-cors({
+app.use(cors({
   origin: CLIENT_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-});
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

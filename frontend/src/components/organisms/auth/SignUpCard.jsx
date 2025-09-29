@@ -11,9 +11,13 @@ import { Separator } from "../../ui/separator";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { useNavigate } from "react-router-dom";
-import { TriangleAlert } from "lucide-react";
+import { TriangleAlert, CircleCheck } from "lucide-react";
+
 
 const SignUpCard = ({
+  isPending,
+  isSuccess,
+  error,
   signUpForm,
   setSignUpForm,
   validationErrors,
@@ -37,6 +41,19 @@ const SignUpCard = ({
                     </div>
                   )
                 }
+                {
+                    error && (
+                    <div className="flex items-center gap-2 bg-destructive/15 rounded-md mb-4 text-destructive-foreground w-full text-red-600 text-xs p-4">
+                      <TriangleAlert className="size-4"/> <p>{error?.message}</p>
+                    </div>)
+                }
+                {
+                    isSuccess && (
+                        <div className="flex items-center gap-2 bg-emerald-100 rounded-md mb-4 text-destructive-foreground w-full text-emerald-800 text-xs p-4">
+                          <CircleCheck className="size-4"/> <p>Successfully signed up. Please check your email for verification.</p>
+                        </div>
+                    )
+                }
               </CardHeader>
         <CardContent className="space-y-2">
           <form className="space-y-2" onSubmit={onSignUpFormSubmit}>
@@ -51,6 +68,7 @@ const SignUpCard = ({
                 onChange={(e) =>
                   setSignUpForm({ ...signUpForm, username: e.target.value })
                 }
+                disabled={isPending}
               />
             </div>
             <div className="grid gap-1">
@@ -64,6 +82,7 @@ const SignUpCard = ({
                 onChange={(e) =>
                   setSignUpForm({ ...signUpForm, email: e.target.value })
                 }
+                disabled={isPending}
               />
             </div>
             <div className="grid gap-1">
@@ -77,6 +96,7 @@ const SignUpCard = ({
                 onChange={(e) =>
                   setSignUpForm({ ...signUpForm, password: e.target.value })
                 }
+                disabled={isPending}
               />
             </div>
             <div className="grid gap-1">
@@ -93,10 +113,16 @@ const SignUpCard = ({
                     confirmPassword: e.target.value,
                   })
                 }
+                disabled={isPending}
               />
             </div>
             <Separator className="my-4" />
-            <Button type="submit" className="w-full" size={"lg"}>
+            <Button 
+                type="submit" 
+                className="w-full" 
+                size={"lg"}
+                disabled={isPending}
+                >
               SignUp
             </Button>
           </form>

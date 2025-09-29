@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import SignUpCard from "./SignUpCard";
+import { useSignUp } from "@/hooks/apis/auth/useSignUp";
+import { useNavigate } from "react-router-dom";
 
 
 export const SignUpContainer = ()=>{
@@ -12,10 +14,11 @@ export const SignUpContainer = ()=>{
     confirmPassword: "",
   });
  
+  const navigate = useNavigate();
 
   const [validationErrors, setValidationErrors] = useState(null);
 
-  console.log("validation errors", validationErrors);
+  const {isPending, isSuccess, error, signUp} = useSignUp();
 
 
   async function onSignUpFormSubmit(e){
@@ -24,7 +27,6 @@ export const SignUpContainer = ()=>{
     if(!signUpForm.username || !signUpForm.email || !signUpForm.password || !signUpForm.confirmPassword){
         console.log("Please fill all the fields");
         setValidationErrors({
-            target: "signUpForm",
             message: "Please fill all the fields"});
         return;
     }
@@ -32,15 +34,28 @@ export const SignUpContainer = ()=>{
     if(signUpForm.password !== signUpForm.confirmPassword){
         console.log("Password and confirm password do not match");
         setValidationErrors({
-            target: "signUpForm",
             message: "Passwords do not match"});
         return;
     }
+
+    setValidationErrors(null);
+
+    await signUp(signUpForm);
   }  
+
+
+  useEffect(()=>{
+    if(isSuccess){
+        navigate('/auth/signin');
+    }
+  },[isSuccess]);
 
   return(
     <>
         <SignUpCard 
+            error={error}
+            isPending={isPending}
+            isSuccess={isSuccess}
             signUpForm={signUpForm} 
             setSignUpForm={setSignUpFrom}
             validationErrors={validationErrors}
