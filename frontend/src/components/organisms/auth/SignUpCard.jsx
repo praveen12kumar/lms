@@ -44,7 +44,7 @@ const SignUpCard = ({
                 {
                     error && (
                     <div className="flex items-center gap-2 bg-destructive/15 rounded-md mb-4 text-destructive-foreground w-full text-red-600 text-xs p-4">
-                      <TriangleAlert className="size-4"/> <p>{error?.message}</p>
+                      <TriangleAlert className="size-4"/> <p>{error}</p>
                     </div>)
                 }
                 {

@@ -19,7 +19,7 @@ export const SignUpContainer = ()=>{
   const [validationErrors, setValidationErrors] = useState(null);
 
   const {isPending, isSuccess, error, signUp} = useSignUp();
-
+  
 
   async function onSignUpFormSubmit(e){
     e.preventDefault();
@@ -46,7 +46,13 @@ export const SignUpContainer = ()=>{
 
   useEffect(()=>{
     if(isSuccess){
-        navigate('/auth/signin');
+        navigate('/auth/otp', {
+          state:{
+            email: signUpForm.email,
+            username: signUpForm.username,
+            password: signUpForm.password
+          }
+        });
     }
   },[isSuccess]);
 

@@ -8,7 +8,7 @@ import NotFound from './pages/notFound/NotFound';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SignUpContainer } from './components/organisms/auth/SignUpContainer';
 import { SignInContainer } from './components/organisms/auth/SignInContainer';
-
+import OneTimePasswordContainer from './pages/auth/OneTimePasswordContainer';
 
 function App() {
   
@@ -20,7 +20,7 @@ function App() {
         <Routes>
         <Route path='/auth/signin' element={<Auth> <SignInContainer/></Auth>}/>
         <Route path='/auth/signup' element={<Auth> <SignUpContainer/></Auth>}/>
-
+        <Route path='/auth/otp' element={<OneTimePasswordContainer/>}/>
         
 
         <Route path='/*' element={<NotFound/>}/>
