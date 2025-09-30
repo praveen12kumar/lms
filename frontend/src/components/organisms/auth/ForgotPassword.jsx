@@ -6,7 +6,7 @@ import { TriangleAlert } from "lucide-react";
 import { CircleCheck} from "lucide-react";
 import React from 'react'
 
-const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPasswordFormSubmit, error="", isSuccess="", isPending=""}) => {
+const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPasswordFormSubmit, error, isSuccess, isPending}) => {
   return (
     <div className='w-full h-dvh flex items-center justify-center bg-zinc-800'>
         <Card className="w-full max-w-[420px]">
@@ -28,7 +28,7 @@ const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPass
                 {
                     isSuccess && (
                         <div className="flex items-center gap-2 bg-emerald-100 rounded-md mb-4 text-destructive-foreground w-full text-emerald-800 text-xs p-4">
-                          <CircleCheck className="size-4"/> <p>Successfully signed in. Redirecting....</p>
+                          <CircleCheck className="size-4"/> <p>Redirecting to Otp verification...</p>
                         </div>
                     )
                 }

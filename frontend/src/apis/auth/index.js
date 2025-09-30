@@ -62,5 +62,19 @@ export const forgotPasswordRequest = async({email})=>{
         console.log("error is forgot password",error);
         throw error.response.data.message;
     }
+}
 
+export const verifyOtpRequest = async({email, otp})=>{
+    try {
+        const response = await axios.post('/api/v1/users/verify-otp', {
+            email,
+            otp
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.log("error is verifing the otp",error);
+        throw error.response.data.message;
+    }
 }

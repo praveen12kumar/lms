@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 
 export const useSignUp = () => {
   const {
-    mutate,
     mutateAsync: signUpMutation,
     isPending,
     isSuccess,

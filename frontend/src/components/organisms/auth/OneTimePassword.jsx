@@ -5,8 +5,6 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 
 export default function OneTimePassword({isPending, isSuccess, error, value, setValue, onComplete}){
   
-  console.log("One time password component rendered")
-
   const blockStyle = "w-10 md:w-14 h-10 md:h-14 rounded-lg border border-zinc-600 bg-zinc-700 text-center text-2xl";
 
   return (

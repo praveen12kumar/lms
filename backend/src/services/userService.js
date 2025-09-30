@@ -188,7 +188,7 @@ export const verifyOtpService = async(data)=>{
       })
     }
 
-    return user;
+    return isOtpVerified;
     
   } catch (error) {
     console.log('User Service error', error);

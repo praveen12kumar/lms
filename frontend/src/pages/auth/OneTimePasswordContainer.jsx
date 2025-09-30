@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import OneTimePassword from './OneTimePassword';
+import OneTimePassword from '../../components/organisms/auth/OneTimePassword';
 import { useVerifyEmail } from '@/hooks/apis/auth/useVerifyEmail';
 
 const OneTimePasswordContainer = () => {

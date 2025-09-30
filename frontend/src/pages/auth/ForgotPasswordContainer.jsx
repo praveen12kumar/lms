@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ForgotPassword from '@/components/organisms/auth/ForgotPassword';
+import { useForgotPassword } from '@/hooks/apis/auth/useForgotPassword';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPasswordContainer = () => {
 
     const [formInput, setFormInput] = useState({email:""});
     const [validationErrors, setValidationErrors] = useState(null);
+    const {isPending, isSuccess, error, forgotPassword} = useForgotPassword();
+    const navigate = useNavigate();
 
     async function onForgotPasswordFormSubmit(e){
         e.preventDefault();
@@ -16,16 +20,31 @@ const ForgotPasswordContainer = () => {
             return;
         }
         setValidationErrors(null);
+
+        await forgotPassword(formInput);
     }
+
+
+    useEffect(()=>{
+        if(isSuccess){
+            navigate('/auth/forgot-password/otp', {
+              state:{
+                email: formInput.email,
+              }
+            });
+        }
+    },[isSuccess])
 
   return (
     <>
         <ForgotPassword
+            error={error}
+            isPending={isPending}
+            isSuccess={isSuccess}
             formInput={formInput}
             setFormInput={setFormInput}
             validationErrors={validationErrors}
             onForgotPasswordFormSubmit={onForgotPasswordFormSubmit}
-        
         />
     
     </>

@@ -66,6 +66,7 @@ export const forgotPassword = async(req, res)=>{
 export const verifyOtp = async(req, res)=>{
     try {
         const response = await verifyOtpService(req.body);
+        console.log("verify otp response", response);
         return res.status(StatusCodes.OK).json(successResponse(response, "OTP verified successfully"));
     } catch (error) {
         console.log("user Controller verify otp error", error);
