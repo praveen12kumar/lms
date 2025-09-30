@@ -93,11 +93,15 @@ const SignInCard = ({
               </CardContent>
               <CardFooter>
                 <CardDescription className="w-full text-center text-xs">
-                  <div className="mb-1">
+                  <div className="">
                     Don't have an account?{" "}
                     <span>Click on the Sign-Up button.</span>
                   </div>
-                  <span className="text-xs underline underline-offset-2 cursor-pointer">Forgot Password?</span>
+                  <Button 
+                    onClick={()=> navigate('/auth/forgot-password')}
+                    variant="link" 
+                    className="text-xs text-zinc-500 hover:text-zinc-600 underline underline-offset-2 cursor-pointer"
+                    >Forgot Password?</Button>
                 </CardDescription>
               </CardFooter>
             </Card>
