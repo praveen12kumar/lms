@@ -2,8 +2,11 @@ import { useMutation } from "@tanstack/react-query";
 
 import { signInRequest} from "@/apis/auth";
 import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/conext/useAuth";
 
 export const useSignIn = () =>{
+    const {setAuth} = useAuth();
+
     const {isPending, isSuccess, error, mutateAsync:signInMutution} = useMutation({
         // from the UI we call this mutate function, this will trigger the signInRequest function
         mutationFn: signInRequest,
@@ -12,6 +15,14 @@ export const useSignIn = () =>{
             const userObject = JSON.stringify(response);
             localStorage.setItem("user", userObject);
             localStorage.setItem("token", response.token);
+
+            setAuth({
+                user: response.user,
+                token: response.token,
+                isLoading: false
+            });
+
+
             toast.success("Signed in successfully");
         },
         onError: (error) =>{
