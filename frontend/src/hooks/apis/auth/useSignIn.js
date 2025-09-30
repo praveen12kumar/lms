@@ -7,8 +7,11 @@ export const useSignIn = () =>{
     const {isPending, isSuccess, error, mutateAsync:signInMutution} = useMutation({
         // from the UI we call this mutate function, this will trigger the signInRequest function
         mutationFn: signInRequest,
-        onSuccess: (data)=>{
-            console.log("Success sign in", data);
+        onSuccess: (response)=>{
+            console.log("Success sign in", response);
+            const userObject = JSON.stringify(response);
+            localStorage.setItem("user", userObject);
+            localStorage.setItem("token", response.token);
             toast.success("Signed in successfully");
         },
         onError: (error) =>{

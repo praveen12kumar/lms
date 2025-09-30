@@ -1,4 +1,5 @@
 import ResetPassword from '@/components/organisms/auth/ResetPassword';
+import { useResetPassword } from '@/hooks/apis/auth/useResetPassword';
 import React, { useEffect, useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ const ResetPasswordContainer = () => {
    
     const navigate = useNavigate();
 
-    //const {isPending, isSuccess, error, changePassword} = useChangePassword();
+    const {isPending, isSuccess, error, resetPassword} = useResetPassword();
 
     const [validationErrors, setValidationErrors] = useState(null);
 
@@ -36,22 +37,22 @@ const ResetPasswordContainer = () => {
         }
     
         setValidationErrors(null);
-        //await changePassword({email, password:formInput.password})
+        await resetPassword({oldPassword: formInput.oldPassword, newPassword: formInput.newPassword})
     };
 
-    // useEffect(()=>{
-    //     if(isSuccess){
-    //         navigate('/auth/signin');
-    //     }
-    // }, [isSuccess]);
+    useEffect(()=>{
+        if(isSuccess){
+            navigate('/auth/signin');
+        }
+    }, [isSuccess]);
 
 
   return (
     <div className=''>
         <ResetPassword
-            // error={error}
-            // isPending={isPending}
-            // isSuccess={isSuccess}
+            error={error}
+            isPending={isPending}
+            isSuccess={isSuccess}
             validationErrors={validationErrors}
             formInput={formInput}
             setFormInput={setFormInput}

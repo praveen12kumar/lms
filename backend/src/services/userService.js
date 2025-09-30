@@ -232,7 +232,8 @@ export const changePasswordService = async(data)=>{
 // reset password service
 
 export const resetPasswordService = async(data, userId)=>{
-
+  console.log('data', data); 
+  console.log('userId', userId);
   try {
     const {oldPassword, newPassword} = data;
     const user = await userRepository.getById(userId);

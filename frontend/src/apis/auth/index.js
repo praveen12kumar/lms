@@ -97,3 +97,20 @@ export const changePasswordRequest = async({email, password})=>{
     }
 };
 
+
+// reset password
+
+export const resetPasswordRequest = async({email, password})=>{
+    try {
+        const response = await axios.post('/api/v1/users/reset-password', {
+            email,
+            password
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.log("error is reset password",error);
+        throw error.response.data.message;
+    }
+};
