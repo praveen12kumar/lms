@@ -12,9 +12,9 @@ export const useSignIn = () =>{
         mutationFn: signInRequest,
         onSuccess: (response)=>{
             console.log("Success sign in", response);
-            const userObject = JSON.stringify(response);
+            const userObject = JSON.stringify(response.data);
             localStorage.setItem("user", userObject);
-            localStorage.setItem("token", response.token);
+            localStorage.setItem("token", response.data.token);
 
             setAuth({
                 user: response.user,

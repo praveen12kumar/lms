@@ -100,11 +100,9 @@ export const changePasswordRequest = async({email, password})=>{
 
 // reset password
 
-export const resetPasswordRequest = async({email, password})=>{
+export const resetPasswordRequest = async({oldPassword, newPassword})=>{
     try {
-        const response = await axios.post('/api/v1/users/reset-password', {
-            email,
-            password
+        const response = await axios.post('/api/v1/users/reset-password', {oldPassword, newPassword},{
         });
 
         return response.data;

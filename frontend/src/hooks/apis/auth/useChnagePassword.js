@@ -9,7 +9,7 @@ export const useChangePassword = () =>{
 
         onSuccess:(data)=>{
             //console.log("Email Verify successfully", data);
-            toast.success("Email Verify successfully");
+            toast.success("Password Changed successfully");
         },
         onError:(err)=>{
             //console.log("Error in verifying Email", err);

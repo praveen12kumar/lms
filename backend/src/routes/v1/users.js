@@ -1,9 +1,9 @@
 import express from 'express';
 
-import { forgotPassword, resetPassword, signin, signup, verifyEmail, verifyOtp, changePassword } from '../../controller/userController.js';
+import { changePassword,forgotPassword, resetPassword, signin, signup, verifyEmail, verifyOtp } from '../../controller/userController.js';
+import { isAuthenticated } from '../../middlewares/authMiddleware.js';
 import { changePasswordSchema, forgotPasswordSchema, resetPasswordSchema, userSignInSchema,userSignUpSchema, verifyOtpSchema, verifyUserSchema } from '../../validators/userSchema.js';
 import { validate } from '../../validators/zodValidators.js';
-import { isAuthenticated } from '../../middlewares/authMiddleware.js';
 
 
 const router = express.Router();

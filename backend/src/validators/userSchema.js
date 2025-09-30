@@ -35,7 +35,7 @@ export const changePasswordSchema = z.object({
 });
 
 export const resetPasswordSchema = z.object({
-    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
-    password: z.string().min(6).max(20),
+    oldPassword: z.string().min(6).max(20),
+    newPassword: z.string().min(6).max(20),
 });
 

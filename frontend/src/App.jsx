@@ -1,6 +1,6 @@
 import "./App.css";
 
-import AppContextProvider from "./context/AppContextProvider";
+import {AppContextProvider} from "./context/AppContextProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppRoutes } from "./utils/Routes";
 

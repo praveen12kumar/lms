@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import axiosInstance from "@/config/axiosConfig";
+
 
 const AuthContext = createContext();
 
@@ -29,6 +31,14 @@ export const AuthContextProvider = ({children})=>{
             })
         }
     },[]);
+
+   useEffect(() => {
+  if (auth.user && auth.token) {
+    axiosInstance.defaults.headers.common['x-access-token'] = auth.token;
+  } else {
+    delete axiosInstance.defaults.headers.common['x-access-token'];
+  }
+}, [auth?.token]);
 
     return(
         <AuthContext.Provider value={{auth, setAuth}}>

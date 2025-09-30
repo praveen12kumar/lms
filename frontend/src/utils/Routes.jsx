@@ -1,6 +1,7 @@
 import {Routes, Route} from 'react-router-dom';
 
 import ProtectedRoute from '@/components/molecules/protectRoute/ProtectedRoute';
+import Auth from '@/pages/auth/Auth';
 import Home from '@/pages/home/Home';
 import { SignInContainer} from '@/components/organisms/auth/SignInContainer';
 import { SignUpContainer } from '@/components/organisms/auth/SignUpContainer';

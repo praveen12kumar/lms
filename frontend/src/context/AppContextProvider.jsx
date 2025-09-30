@@ -1,9 +1,7 @@
 import combineContext from "@/utils/combineContext";
 import { AuthContextProvider } from "./AuthContext";
 
-export default AppContextProvider = combineContext(
+export const AppContextProvider = combineContext(
     AuthContextProvider,
     // UserContextProvider
-
-
 );

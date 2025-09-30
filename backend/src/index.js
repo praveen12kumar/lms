@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
   origin: CLIENT_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type','x-access-token', 'Authorization'],
   credentials: true,
 }));
 

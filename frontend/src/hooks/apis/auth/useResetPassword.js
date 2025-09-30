@@ -4,12 +4,12 @@ import toast from "react-hot-toast";
 
 
 export const useResetPassword = () =>{
-    const {isPending, isSuccess, error, mutateAsync: resetPasswordMutution} = useMutation({
+    const {isPending, isSuccess, error, mutateAsync: resetPasswordMutation} = useMutation({
         mutationFn: resetPasswordRequest,
 
         onSuccess:(data)=>{
             //console.log("Email Verify successfully", data);
-            toast.success("Email Verify successfully");
+            toast.success("Password Reset successfully");
         },
         onError:(err)=>{
             //console.log("Error in verifying Email", err);
@@ -21,6 +21,6 @@ export const useResetPassword = () =>{
         isPending,
         isSuccess,
         error,
-        resetPassword: resetPasswordMutution
+        resetPassword: resetPasswordMutation
     }
 }
