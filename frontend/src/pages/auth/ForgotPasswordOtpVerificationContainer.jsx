@@ -21,7 +21,11 @@ const ForgotPasswordOtpVerificationContainer = () => {
     
     useEffect(()=>{
       if(isSuccess){
-        navigate('/auth/change-password');
+        navigate('/auth/change-password', {
+          state:{
+            email: email,
+          }
+        });
       }
     },[isSuccess]);
 

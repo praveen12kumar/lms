@@ -15,7 +15,6 @@ export const useForgotPassword = () =>{
             //console.log("Error in verifying Email", err);
             toast.error(err || "Something went wrong");
         }
-
     });
 
 

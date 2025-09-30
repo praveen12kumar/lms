@@ -9,7 +9,7 @@ import React from 'react'
 const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPasswordFormSubmit, error, isSuccess, isPending}) => {
   return (
     <div className='w-full h-dvh flex items-center justify-center bg-zinc-800'>
-        <Card className="w-full max-w-[420px]">
+        <Card className="w-full max-w-[420px] h-auto">
             <CardHeader>
                 <CardTitle className="w-full text-center text-xl font-bold">Forgot Password</CardTitle>
                 {
