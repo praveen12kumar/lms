@@ -49,3 +49,18 @@ export const verifyEmailRequest = async({username, email, password, otp})=>{
         throw error.response.data.message;
     }
 }
+
+export const forgotPasswordRequest = async({email})=>{
+    try {
+        const response = await axios.post('/api/v1/users/forgot-password', {
+            email
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.log("error is forgot password",error);
+        throw error.response.data.message;
+    }
+
+}

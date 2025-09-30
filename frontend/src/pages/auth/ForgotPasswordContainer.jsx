@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import ForgotPassword from '@/components/organisms/auth/ForgotPassword'
+import React, { useState } from 'react';
+import ForgotPassword from '@/components/organisms/auth/ForgotPassword';
+
 const ForgotPasswordContainer = () => {
 
     const [formInput, setFormInput] = useState({email:""});

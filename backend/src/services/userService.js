@@ -149,8 +149,13 @@ export const forgotPasswordService = async(data)=>{
         statusCode: StatusCodes.NOT_FOUND,
         explanation: ["Invalid data sent from the client"]
       })
-      
     }
+
+    await checkOtpRestrictions(data.email);
+    await trackOtpRequests(data.email);
+    await sendOtp(data.username, data.email, 'forgot-password-mail');
+
+    return;
   } catch (error) {
     console.log('User Service error', error);
     if (error.name === "ValidationError") {

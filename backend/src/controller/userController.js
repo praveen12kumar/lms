@@ -50,8 +50,8 @@ export const signin = async(req, res)=>{
 // forgot password
 export const forgotPassword = async(req, res)=>{
     try {
-        const response = await forgotPasswordService(req.body);
-        console.log("forgot password response",response);
+        await forgotPasswordService(req.body);
+        //console.log("forgot password response",response);
         return res.status(StatusCodes.OK).json(successResponse({}, "OTP send to email. Please check your account"))
     } catch (error) {
         console.log("user Controller forgot password error", error);
