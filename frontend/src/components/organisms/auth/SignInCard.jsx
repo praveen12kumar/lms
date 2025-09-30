@@ -88,7 +88,7 @@ const SignInCard = ({
                     className="w-full" 
                     size={"lg"}
                     disabled={isPending}
-                    >SignIn</Button>
+                    >{isPending ? "Signing in..." : "Sign In"}</Button>
                 </form>
               </CardContent>
               <CardFooter>

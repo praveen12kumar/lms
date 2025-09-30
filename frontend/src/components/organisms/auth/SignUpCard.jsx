@@ -123,7 +123,7 @@ const SignUpCard = ({
                 size={"lg"}
                 disabled={isPending}
                 >
-              SignUp
+              {isPending ? "Signing Up..." : "Sign Up"}
             </Button>
           </form>
         </CardContent>
