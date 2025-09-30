@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { forgotPasswordService, resetPasswordService, signInService, signUpService, verifyOtpService, verifyUserService } from "../services/userService.js";
+import { changePasswordService, forgotPasswordService, resetPasswordService, signInService, signUpService, verifyOtpService, verifyUserService } from "../services/userService.js";
 import { customErrorResponse, internalErrorResponse, successResponse } from "../utils/common/responseObject.js";
 
 
@@ -77,11 +77,27 @@ export const verifyOtp = async(req, res)=>{
     }
 }
 
+// change Password
+export const changePassword = async(req, res)=>{
+    try {
+        const response = await changePasswordService(req.body);
+        return res.status(StatusCodes.OK).json(successResponse(response, "Password changed successfully"));
+    } catch (error) {
+        console.log("user Controller change password error", error);
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse(error));
+    }
+}
+
+
 
 // reset Password
 export const resetPassword = async(req, res)=>{
+    const userId = req.user.id;
     try {
-        const response = await resetPasswordService(req.body);
+        const response = await resetPasswordService(req.body, userId);
         return res.status(StatusCodes.OK).json(successResponse(response, "Password reset successfully"));
     } catch (error) {
         console.log("user Controller reset password error", error);

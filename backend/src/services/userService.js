@@ -199,11 +199,9 @@ export const verifyOtpService = async(data)=>{
   }
 }
 
+// change password service
 
-
-// reset password service
-
-export const resetPasswordService = async(data)=>{
+export const changePasswordService = async(data)=>{
   try {
     const {email, password} = data;
     const user = await userRepository.getByEmail(email);
@@ -214,9 +212,52 @@ export const resetPasswordService = async(data)=>{
         explanation: ["Invalid data sent from the client"],
       })
     }
+    // hash the password
+    const hashedPass = await hashedPassword(password);
 
-    const isSamePassword = await bcrypt.compare(password, user.password);
-    if(isSamePassword){
+    const updatedUser = await userRepository.update(user._id, {password: hashedPass});
+
+    return updatedUser;
+  } catch (error) {
+    console.log('User Service error', error);
+    if (error.name === "ValidationError") {
+      throw new ValidationError({ error: error.errors },error.message);
+    }
+    throw error;
+  }
+}
+
+
+
+// reset password service
+
+export const resetPasswordService = async(data, userId)=>{
+
+  try {
+    const {oldPassword, newPassword} = data;
+    const user = await userRepository.getById(userId);
+    if(!user){
+      throw new ClientError({
+        message: "User not found",
+        statusCode: StatusCodes.NOT_FOUND,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    // Old password must match current hash
+
+    const oldMatches = await bcrypt.compare(oldPassword, user.password);
+    if(!oldMatches){
+      throw new ClientError({
+        message: "Old password is incorrect",
+        statusCode: StatusCodes.BAD_REQUEST,
+        explanation: ["Invalid data sent from the client"],
+      })
+    }
+
+    // new password must be different from current password
+    const newMatches = await bcrypt.compare(newPassword, user.password);
+    if(newMatches){
       throw new ClientError({
         message: "New password cannot be same as old password",
         statusCode: StatusCodes.BAD_REQUEST,
@@ -225,11 +266,10 @@ export const resetPasswordService = async(data)=>{
     }
 
     // hash the new passowrd
-    const hashPass = await hashedPassword(password);
-
+    const hashPass = await hashedPassword(newPassword);
     const updatedUser = await userRepository.update(user._id, {password: hashPass});
-
     return updatedUser;
+    
   } catch (error) {
     console.log('User Service error', error);
     if (error.name === "ValidationError") {

@@ -29,9 +29,13 @@ export const verifyOtpSchema = z.object({
     otp: z.string().min(6).max(6),
 })
 
+export const changePasswordSchema = z.object({
+    email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
+    password: z.string().min(6).max(20),
+});
 
 export const resetPasswordSchema = z.object({
     email: z.string().email({pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}),
     password: z.string().min(6).max(20),
-})
+});
 
