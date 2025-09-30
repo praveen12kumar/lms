@@ -78,3 +78,22 @@ export const verifyOtpRequest = async({email, otp})=>{
         throw error.response.data.message;
     }
 }
+
+
+// change password
+
+export const changePasswordRequest = async({email, password})=>{
+    try {
+        const response = await axios.post('/api/v1/users/change-password', {
+            email,
+            password
+        });
+
+        return response.data;
+
+    } catch (error) {
+        console.log("error is changing password",error);
+        throw error.response.data.message;
+    }
+};
+

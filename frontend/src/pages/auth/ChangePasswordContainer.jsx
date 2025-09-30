@@ -1,11 +1,19 @@
 import ChangePassword from '@/components/organisms/auth/ChangePassword'
-import React, { useState } from 'react'
+import { useChangePassword } from '@/hooks/apis/auth/useChnagePassword'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const ChangePasswordContainer = () => {
     const [formInput, setFormInput] = useState({
         password: "",
         confirmPassword: ""
     })
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const {email} = location.state || {};
+
+    const {isPending, isSuccess, error, changePassword} = useChangePassword();
 
     const [validationErrors, setValidationErrors] = useState(null);
 
@@ -24,17 +32,26 @@ const ChangePasswordContainer = () => {
         }
     
         setValidationErrors(null);
-    }
+        await changePassword({email, password:formInput.password})
+    };
+
+    useEffect(()=>{
+        if(isSuccess){
+            navigate('/auth/signin');
+        }
+    }, [isSuccess]);
 
 
   return (
     <div className=''>
         <ChangePassword
+            error={error}
+            isPending={isPending}
+            isSuccess={isSuccess}
             validationErrors={validationErrors}
             formInput={formInput}
             setFormInput={setFormInput}
             onChangePasswordFormSubmit={onChangePasswordFormSubmit}
-        
         />
     </div>
   )

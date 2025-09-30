@@ -7,7 +7,7 @@ import { TriangleAlert } from "lucide-react";
 import { CircleCheck} from "lucide-react";
 import React from 'react'
 
-const ChangePassword = ({validationErrors, formInput, setFormInput, onChangePasswordFormSubmit, error="", isSuccess="", isPending=""}) => {
+const ChangePassword = ({validationErrors, formInput, setFormInput, onChangePasswordFormSubmit, error, isSuccess, isPending}) => {
   return (
     <div className='w-full h-dvh flex items-center justify-center bg-zinc-800'>
       <Card className="w-full max-w-[420px] h-auto">
@@ -50,13 +50,13 @@ const ChangePassword = ({validationErrors, formInput, setFormInput, onChangePass
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input
                       id="confirmPassword"
                       type="password"
                       placeholder="**********"
                       required
-                      value={formInput?.password}
+                      value={formInput?.confirmPassword}
                       onChange={(e)=> setFormInput({...formInput, confirmPassword: e.target.value}) }
                       disabled={isPending}
                     />

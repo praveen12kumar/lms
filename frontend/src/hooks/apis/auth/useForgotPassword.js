@@ -8,11 +8,11 @@ export const useForgotPassword = () =>{
         mutationFn: forgotPasswordRequest,
 
         onSuccess:(data)=>{
-            //console.log("Email Verify successfully", data);
+            console.log("Email Verify successfully", data);
             toast.success("Email Verify successfully");
         },
         onError:(err)=>{
-            //console.log("Error in verifying Email", err);
+            console.log("Error in verifying Email", err);
             toast.error(err || "Something went wrong");
         }
     });
