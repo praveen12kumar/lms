@@ -18,6 +18,6 @@ export const useSignIn = () =>{
         isPending,
         isSuccess,
         error,
-        signInMutution
+        signIn: signInMutution
     }
 };

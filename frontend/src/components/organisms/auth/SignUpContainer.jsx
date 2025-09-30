@@ -23,16 +23,16 @@ export const SignUpContainer = ()=>{
 
   async function onSignUpFormSubmit(e){
     e.preventDefault();
-    console.log("sign up data", signUpForm);
+    //console.log("sign up data", signUpForm);
     if(!signUpForm.username || !signUpForm.email || !signUpForm.password || !signUpForm.confirmPassword){
-        console.log("Please fill all the fields");
+        //console.log("Please fill all the fields");
         setValidationErrors({
             message: "Please fill all the fields"});
         return;
     }
 
     if(signUpForm.password !== signUpForm.confirmPassword){
-        console.log("Password and confirm password do not match");
+        //console.log("Password and confirm password do not match");
         setValidationErrors({
             message: "Passwords do not match"});
         return;

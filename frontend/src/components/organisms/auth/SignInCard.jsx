@@ -13,8 +13,12 @@ import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { useNavigate } from "react-router-dom";
 import { TriangleAlert } from "lucide-react";
+import { CircleCheck} from "lucide-react";
 
 const SignInCard = ({
+        isPending,
+        isSuccess,
+        error,
         signInForm, 
         setSignInForm, 
         validationErrors,
@@ -38,6 +42,19 @@ const SignInCard = ({
                     </div>
                   )
                 }
+                {
+                    error && (
+                    <div className="flex items-center gap-2 bg-destructive/15 rounded-md mb-4 text-destructive-foreground w-full text-red-600 text-xs p-4">
+                      <TriangleAlert className="size-4"/> <p>{error}</p>
+                    </div>)
+                }
+                {
+                    isSuccess && (
+                        <div className="flex items-center gap-2 bg-emerald-100 rounded-md mb-4 text-destructive-foreground w-full text-emerald-800 text-xs p-4">
+                          <CircleCheck className="size-4"/> <p>Successfully signed in. Redirecting....</p>
+                        </div>
+                    )
+                }
               </CardHeader>
               <CardContent className="space-y-2">
                 <form className="space-y-2" onSubmit={onSignInFormSubmit}>
@@ -50,6 +67,7 @@ const SignInCard = ({
                       required
                       value={signInForm?.email}
                       onChange={(e)=> setSignInForm({...signInForm, email: e.target.value})}
+                      disabled={isPending}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -61,10 +79,16 @@ const SignInCard = ({
                       required
                       value={signInForm?.password}
                       onChange={(e)=> setSignInForm({...signInForm, password: e.target.value})}
+                      disabled={isPending}
                     />
                   </div>
                   <Separator className="my-4"/>
-                  <Button type="submit" className="w-full" size={"lg"}>SignIn</Button>
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    size={"lg"}
+                    disabled={isPending}
+                    >SignIn</Button>
                 </form>
               </CardContent>
               <CardFooter>
