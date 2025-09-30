@@ -13,6 +13,8 @@ import Home from './pages/home/Home';
 import ForgotPasswordContainer from './pages/auth/ForgotPasswordContainer';
 import ForgotPasswordOtpVerificationContainer from './pages/auth/ForgotPasswordOtpVerificationContainer';
 import ChangePasswordContainer from './pages/auth/ChangePasswordContainer';
+import ResetPasswordContainer from './pages/auth/ResetPasswordContainer';
+
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
         <Route path='/auth/otp' element={<OneTimePasswordContainer/>}/>
         <Route path='/auth/forgot-password' element={<ForgotPasswordContainer/>}/>
         <Route path="/auth/change-password" element={<ChangePasswordContainer/>}/>
+        <Route path='/auth/reset-password' element={<ResetPasswordContainer/>}/>
         <Route path='/auth/forgot-password/otp' element={<ForgotPasswordOtpVerificationContainer/>}/>
         <Route path='/*' element={<NotFound/>}/>
       </Routes>
