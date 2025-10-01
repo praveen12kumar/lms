@@ -108,4 +108,5 @@ export const resetPassword = async(req, res)=>{
     }
 }
 
+//TODO: end point for send otp
 

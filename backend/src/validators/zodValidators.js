@@ -9,7 +9,7 @@ export const validate = (schema)=>{
             await schema.parseAsync(req.body);
             next();
         } catch (error) {
-            console.log("validation error in zod validator",error.name, error.issues, typeof error.issues);
+            //console.log("validation error in zod validator",error.name, error.issues, typeof error.issues);
             let explanation = [];
             explanation = error.issues.map((issue)=> issue['message'] + " "+ issue.path[0]);
             let message = explanation.join(', ');

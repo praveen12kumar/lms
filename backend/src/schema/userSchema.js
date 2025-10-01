@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema({
   },
   avatar:{
     type: String,
+  },
+  role:{
+    type: String,
+    enum: ['USER', 'ADMIN'],
+    default: 'USER'
   }
 }, {
   timestamps: true,
@@ -30,12 +35,6 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function saveUser(next){
     const user = this;
-    // if(!user.isModified('password')){
-    //     return next();
-    // }
-    // const salt = bcrypt.genSaltSync(10);
-    // const hash = bcrypt.hashSync(user.password, salt);
-    // user.password = hash;
     user.avatar = `https://robohash.org/${user.username}`;
     next();
 });
