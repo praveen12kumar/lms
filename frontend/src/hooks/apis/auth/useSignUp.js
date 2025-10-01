@@ -24,8 +24,7 @@ export const useSignUp = () => {
   return {
     isPending,
     isSuccess,
-    error,
-    mutate,          // fire-and-forget
+    error,         
     signUp: signUpMutation, // promise style
   };
 };

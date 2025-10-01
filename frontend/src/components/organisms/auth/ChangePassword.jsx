@@ -9,7 +9,7 @@ import React from 'react'
 
 const ChangePassword = ({validationErrors, formInput, setFormInput, onChangePasswordFormSubmit, error, isSuccess, isPending}) => {
   return (
-    <div className='w-full h-dvh flex items-center justify-center bg-zinc-800'>
+    <div className='w-full h-dvh flex items-center justify-center bg-zinc-900'>
       <Card className="w-full max-w-[420px] h-auto">
         <CardHeader className="w-full text-center text-xl font-bold">
           <CardTitle>Change Password</CardTitle>

@@ -33,7 +33,8 @@ const SignUpCard = ({
                   <Button onClick={()=>navigate('/auth/signin')} className="flex-1 " variant="outline" size="lg">SignIn</Button>
                   <Button  className="flex-1 bg-zinc-200" variant="outline" size="lg">SignUp</Button>
                 </div>
-                <CardTitle className="w-full text-center">SignIn to your Account</CardTitle>
+                <Separator className='mb-2'/>
+                <CardTitle className="w-full text-center">SignUp to your Account</CardTitle>
                 {
                   validationErrors &&(
                     <div className="flex items-center gap-2 bg-destructive/15 rounded-md mb-4 text-destructive-foreground w-full text-red-600 text-xs p-4">

@@ -5,10 +5,12 @@ import { Input } from '@/components/ui/input';
 import { TriangleAlert } from "lucide-react";
 import { CircleCheck} from "lucide-react";
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPasswordFormSubmit, error, isSuccess, isPending}) => {
+  const navigate = useNavigate();
   return (
-    <div className='w-full h-dvh flex items-center justify-center bg-zinc-800'>
+    <div className='w-full h-full'>
         <Card className="w-full max-w-[420px] h-auto">
             <CardHeader>
                 <CardTitle className="w-full text-center text-xl font-bold">Forgot Password</CardTitle>
@@ -59,7 +61,12 @@ const ForgotPassword = ({validationErrors, formInput, setFormInput, onForgotPass
                 <h3 className='text-center text-md font-medium'>Login to LMS</h3>
                 <div className="w-full text-sm text-muted-foreground flex justify-center items-center">
                     <p className=''>Go back to?</p>
-                    <Button variant='link' size='sm' className='cursor-pointer hover:underline text-teal-800'>SignIn</Button>
+                    <Button
+                      onClick={()=> navigate('/auth/signin')}
+                      variant='link' 
+                      size='sm' 
+                      className='cursor-pointer hover:underline text-teal-800'
+                      >SignIn</Button>
                 </div>
             </CardFooter>
         </Card>

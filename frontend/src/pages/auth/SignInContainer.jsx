@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import SignInCard from "./SignInCard";
+import SignInCard from "../../components/organisms/auth/SignInCard";
 import { useSignIn } from "@/hooks/apis/auth/useSignIn";
 import { useNavigate } from "react-router-dom";
 
 
-export const SignInContainer = ()=>{
+const SignInContainer = ()=>{
   const navigate = useNavigate();
   const [signInForm, setSignInForm] = useState({
     email: "",
@@ -54,3 +54,6 @@ export const SignInContainer = ()=>{
     </>
   )
 }
+
+
+export default SignInContainer;

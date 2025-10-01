@@ -34,6 +34,7 @@ const SignInCard = ({
                   <Button className="flex-1 bg-zinc-200" variant="outline" size="lg">SignIn</Button>
                   <Button onClick={()=>navigate('/auth/signup')} className="flex-1" variant="outline" size="lg">SignUp</Button>
                 </div>
+                <Separator className='mb-2'/>
                 <CardTitle className="w-full text-center">SignIn to your Account</CardTitle>
                 {
                   validationErrors &&(

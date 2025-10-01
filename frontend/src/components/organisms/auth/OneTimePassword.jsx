@@ -5,12 +5,12 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 
 export default function OneTimePassword({isPending, isSuccess, error, value, setValue, onComplete}){
   
-  const blockStyle = "w-10 md:w-14 h-10 md:h-14 rounded-lg border border-zinc-600 bg-zinc-700 text-center text-2xl";
+  const blockStyle = "w-10 md:w-14 h-10 md:h-14 rounded-lg text-zinc-800 bg-white text-center text-2xl";
 
   return (
-    <div className='w-full h-dvh bg-zinc-800 flex flex-col gap-4 items-center justify-center'>
-        <h2 className='text-2xl text-white font-medium'>OTP Verification</h2>
-        <p className='text-white/40 text-sm'>Enter the OTP sent to your email</p>
+    <div className='w-full h-full'>
+        <h2 className='text-3xl text-zinc-800 font-medium text-center mb-4'>OTP Verification</h2>
+        <p className='text-zinc-500 text-center mb-2 text-sm'>Enter the OTP sent to your email</p>
         <InputOTP 
           maxLength={6} 
           pattern={REGEXP_ONLY_DIGITS}
@@ -30,12 +30,12 @@ export default function OneTimePassword({isPending, isSuccess, error, value, set
         </InputOTPGroup>
     </InputOTP>
     {
-      error && (<p className='text-red-500 text-sm'>{error}</p>)
+      true && (<p className='text-red-700 text-md font-medium mt-4 text-center'>{error}</p>)
     }
     {
-      isSuccess && (<p className='text-green-500 text-sm'>OTP verified successfully</p>)
+      isSuccess && (<p className='text-green-800 text-md font-medium mt-4 text-center'>OTP verified successfully</p>)
     }
-    <p className='text-white/40 text-sm'>Please do not refresh the page</p>
+    <p className='text-zince-800 text-sm text-center mt-4'>Please do not refresh the page</p>
 
     </div>
   )

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import SignUpCard from "./SignUpCard";
+import SignUpCard from '@/components/organisms/auth/SignUpCard';
 import { useSignUp } from "@/hooks/apis/auth/useSignUp";
 import { useNavigate } from "react-router-dom";
 
 
-export const SignUpContainer = ()=>{
+const SignUpContainer = ()=>{
 
     const [signUpForm, setSignUpFrom] = useState({
     username: "",
@@ -69,4 +69,6 @@ export const SignUpContainer = ()=>{
         />
     </>
   )
-}
+};
+
+export default SignUpContainer;
